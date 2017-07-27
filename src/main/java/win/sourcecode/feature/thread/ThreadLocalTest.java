@@ -1,12 +1,8 @@
-package win.sourcecode.feature.threadlocal1;
+package win.sourcecode.feature.thread;
 
-public class SequenceNumber {
-    private static ThreadLocal<Integer> seqNum = new ThreadLocal<Integer>() {
-        @Override
-        public Integer initialValue() {
-            return 0;
-        }
-    };
+// 变量线程私有
+public class ThreadLocalTest {
+    private static ThreadLocal<Integer> seqNum = ThreadLocal.withInitial(() -> 0);
 
     public int getNextNum() {
         seqNum.set(seqNum.get() + 1);
@@ -14,7 +10,7 @@ public class SequenceNumber {
     }
 
     public static void main(String[] args) {
-        SequenceNumber sn = new SequenceNumber();
+        ThreadLocalTest sn = new ThreadLocalTest();
         TestClient tc1 = new TestClient(sn);
         TestClient tc2 = new TestClient(sn);
         TestClient tc3 = new TestClient(sn);
@@ -25,9 +21,9 @@ public class SequenceNumber {
 
     private static class TestClient
             extends Thread {
-        private SequenceNumber sn;
+        private ThreadLocalTest sn;
 
-        public TestClient(SequenceNumber sn) {
+        public TestClient(ThreadLocalTest sn) {
             this.sn = sn;
         }
 
