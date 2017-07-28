@@ -12,7 +12,6 @@ public class LockSupportTest {
 
         System.out.println("sub start ");
         new Thread(() -> {
-
             try {
                 TimeUnit.SECONDS.sleep(3);
             } catch (InterruptedException e) {
