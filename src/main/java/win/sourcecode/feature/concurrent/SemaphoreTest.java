@@ -1,9 +1,10 @@
-package win.sourcecode.feature.nio;
+package win.sourcecode.feature.concurrent;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 public class SemaphoreTest {
     private Semaphore semaphore = new Semaphore(3);
@@ -25,6 +26,14 @@ public class SemaphoreTest {
             });
         }
         executorService.shutdown();
+
+        Runnable runnable = ()->{
+            System.out.println("");
+        };
+
+        Supplier<String> supplier = () -> {
+            return "hello";
+        };
     }
 
     public static void main(String[] args) {

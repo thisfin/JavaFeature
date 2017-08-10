@@ -1,4 +1,4 @@
-package win.sourcecode.feature.nio.aqs;
+package win.sourcecode.feature.concurrent.aqs;
 
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
@@ -42,13 +42,10 @@ public class SimpleLock
         simpleLock.lock();
 
         for (int i = 0; i < 10; i++) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    simpleLock.lock();
-                    System.out.println(Thread.currentThread().getId() + " acquired the lock!");
-                    simpleLock.unlock();
-                }
+            new Thread(() -> {
+                simpleLock.lock();
+                System.out.println(Thread.currentThread().getId() + " acquired the lock!");
+                simpleLock.unlock();
             }).start();
             Thread.sleep(100);
         }
