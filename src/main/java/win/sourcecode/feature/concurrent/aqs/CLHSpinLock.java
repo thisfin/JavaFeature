@@ -3,7 +3,7 @@ package win.sourcecode.feature.concurrent.aqs;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class CLHSpinLock {
-    private final ThreadLocal<Node> prev;
+    private final ThreadLocal<Node> prev; // 指向上一个节点
     private final ThreadLocal<Node> node;
     private final AtomicReference<Node> tail = new AtomicReference<Node>(new Node());
 
@@ -28,7 +28,7 @@ public class CLHSpinLock {
         node.locked = true;
         // 一个CAS操作即可将当前线程对应的节点加入到队列中，
         // 并且同时获得了前继节点的引用，然后就是等待前继释放锁
-        Node pred = this.tail.getAndSet(node);
+        Node pred = this.tail.getAndSet(node); // !!! 重点
         this.prev.set(pred);
         while (pred.locked) {// 进入自旋
         }

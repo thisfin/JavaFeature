@@ -1,4 +1,4 @@
-package win.sourcecode.feature.concurrent.aqs;
+package win.sourcecode.feature.concurrent;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
